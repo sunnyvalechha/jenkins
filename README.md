@@ -1,6 +1,6 @@
 CI/CD - Continues Integration and Continues Delivery
 
-**Installation on Ec2 t2 medium:**
+**Jenkins Installation on Ec2 t2.medium:**
 
         sudo apt update -y
         sudo apt install openjdk-17-jre -y
@@ -16,7 +16,7 @@ CI/CD - Continues Integration and Continues Delivery
         sh jenkins.sh
         sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 
-===========Docker Installation===========
+=========== Docker Installation on same instance ===========
 
         sudo apt install docker.io -y
         sudo su
@@ -30,6 +30,9 @@ CI/CD - Continues Integration and Continues Delivery
 * Jenkins restart from UI: http://65.2.148.254:8080/
 
 Manage Jenkins    -->    Plugins    -->    Available plugins    -->    Docker Pipeline    -->    
+
+**Tip**: Don't start with a free-style project. Start with Pipeline instead as free-style is not declarative approach and not used in production.
+
 
 
 
