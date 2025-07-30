@@ -111,4 +111,32 @@ We have made changes in the existing pipeline and created a multi-build and mult
 * Modify the folder name at Script path "multi-stage-multi-agent/Jenkinsfile"
 * Run the pipeline.
 * New docker image have been created "maven-3.8.1-adoptopenjdk-11"
-    
+
+
+# CI/CD Pipeline
+
+<img width="1743" height="720" alt="image" src="https://github.com/user-attachments/assets/efbe2aef-54e5-4192-bf3a-410c4241c41d" />
+
+**Explanation:**
+
+* Inside Jenkins we have created jenkins file it can be imported from the source code management tool or can be written inside jenkins.
+* Purpose of the jenkins file is to execute all the other tasks of the **Continues Integration** only not for Delivery.
+* 
+
+**Steps:**
+
+1. Code checkout from Github
+2. 
+
+* t2.large ubuntu instance launched
+* Setup Jenkins
+* Create pipeline project "ultimate-cicd"
+* Defintion "Pipeline script from SCM"
+* SCM "Git"
+* Repo URL "https://github.com/sunnyvalechha/Jenkins-Zero-To-Hero.git"
+* No password required as repo is public
+* Branch "*/main"
+* Script Path "java-maven-sonar-argocd-helm-k8s/spring-boot-app/JenkinsFile"
+
+**Tip**: Here, script path can be present on any location and the file name can be anything like JenkinsFile or jenkinsnofile or JENKins
+
