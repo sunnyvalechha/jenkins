@@ -104,7 +104,11 @@ Jenkins agents are separate machines or containers connected to the Jenkins mast
 * A test stage might run on an agent configured with various operating systems or browsers for cross-platform testing.
 * A deployment stage might run on an agent with network access to target deployment environments.
 
+**Practical:**
 
+We have made changes in the existing pipeline and created a multi-build and multi-state pipeline.
 
-    
+* Modify the folder name at Script path "multi-stage-multi-agent/Jenkinsfile"
+* Run the pipeline.
+* New docker image have been created "maven-3.8.1-adoptopenjdk-11"
     
