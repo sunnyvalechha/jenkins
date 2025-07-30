@@ -119,14 +119,17 @@ We have made changes in the existing pipeline and created a multi-build and mult
 
 **Explanation:**
 
-* Inside Jenkins we have created jenkins file it can be imported from the source code management tool or can be written inside jenkins.
-* Purpose of the jenkins file is to execute all the other tasks of the **Continues Integration** only not for Delivery.
-* 
+1. Inside Jenkins we have created jenkins file it can be imported from the source code management tool (Git) or can be written inside jenkins.
+2. Purpose of the jenkins file is to execute all the other tasks of the **Continues Integration** only, not for the Continues Delivery.
+3. The docker image we are using already has a maven installation.
+4. 
 
 **Steps:**
 
 1. Code checkout from Github
-2. 
+2. Configure Sonar server on ec2 instance
+3. 
+
 
 * t2.large ubuntu instance launched
 * Setup Jenkins
@@ -137,6 +140,23 @@ We have made changes in the existing pipeline and created a multi-build and mult
 * No password required as repo is public
 * Branch "*/main"
 * Script Path "java-maven-sonar-argocd-helm-k8s/spring-boot-app/JenkinsFile"
-
+ 
 **Tip**: Here, script path can be present on any location and the file name can be anything like JenkinsFile or jenkinsnofile or JENKins
 
+* Manage Jenkins    -->    Plugins    -->    Available plugins    -->    Search for "Docker Pipeline"
+* Manage Jenkins    -->    Plugins    -->    Available plugins    -->    Search for "SonarQube Scanner"
+* sudo apt update && sudo apt install unzip -y
+* useradd sonarqube
+* mkdir sonarqube
+* cd /opt/sonarqube
+* wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-10.6.0.92116.zip
+* All distributions of sonar: https://binaries.sonarsource.com/?prefix=Distribution/sonarqube/
+* unzip *
+* chown -R sonarqube:sonarqube /opt/sonarqube
+* chmod -R 775 /opt/sonarqube
+* sudo chown -R sonarqube:sonarqube /var/sonarqube/
+* sudo chown -R sonarqube:sonarqube /opt/sonarqube-10.6.0.92116/
+* cd /opt/sonarqube/sonarqube-10.4.1.88267/bin/linux-x86-64
+* /opt/sonarqube-10.6.0.92116/bin/linux-x86-64/sonar.sh start
+* /opt/sonarqube-10.6.0.92116/bin/linux-x86-64/sonar.sh status
+* http://13.235.132.98:9000
