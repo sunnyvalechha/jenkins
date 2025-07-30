@@ -31,11 +31,16 @@ CI/CD - Continues Integration and Continues Delivery
 
 Manage Jenkins    -->    Plugins    -->    Available plugins    -->    Docker Pipeline    -->    
 
-**Tip**: Don't start with a free-style project. Start with Pipeline instead as free-style is not declarative approach and not used in production.
+**Tip**: Don't start with a free-style project. Start with **Pipeline** instead as free-style is not declarative approach and not used in production.
 
-
-
-
+* Create Pipeline "first-jenkins"
+* Go to pipeline section
+* Defintion "Pipeline script from SCM"
+* Git Repository URL "https://github.com/iam-veeramalla/Jenkins-Zero-To-Hero.git"
+* Credentials "None"
+* Branch "/main"
+* Script path "my-first-pipeline/Jenkinsfile"
+* Apply & Save
 
 
 
