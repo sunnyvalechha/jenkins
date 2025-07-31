@@ -122,14 +122,14 @@ We have made changes in the existing pipeline and created a multi-build and mult
 1. Inside Jenkins we have created jenkins file it can be imported from the source code management tool (Git) or can be written inside jenkins.
 2. Purpose of the jenkins file is to execute all the other tasks of the **Continues Integration** only, not for the Continues Delivery.
 3. The docker image we are using already has a maven installation.
-4. 
 
 **Steps:**
 
 1. Code checkout from Github
 2. Configure Sonar server on ec2 instance
 3. Setup Sonar & jenkins Integration
-4. 
+4. Setup ArgoCD in K8 cluster (master) using Kubernetes Operators (recommeded method) Operators manage the lifecycle of K8 controllers
+5. 
 
 
 * t2.large ubuntu instance launched
@@ -166,4 +166,38 @@ We have made changes in the existing pipeline and created a multi-build and mult
 * Sonar id:admin / pass:123
 * Sonar        -->        Myaccount        -->        Security        -->        Generate Token        --> Copy Token
 * Manage Jenkins        -->        Credentials        -->        System        -->        Global credentials (unrestricted)        -->        Add creds        -->
-* New creds        -->        Kind-Secret text        -->        Paste token in secret section        -->        Id=sonarqube        -->        Create        
+* New creds        -->        Kind-Secret text        -->        Paste token in secret section        -->        Id=sonarqube        -->        Create
+* Login with user root
+        apt update -y
+        apt install docker.io -y
+        usermod -aG docker jenkins
+        usermod -aG docker ubuntu
+        systemctl restart docker
+* Logout with user ubuntu & re-login
+* docker run hello-world        # sample docker run
+* Operator for Argo Installation: https://operatorhub.io/
+* Go to K8 cluster master
+* sudo curl -sL https://github.com/operator-framework/operator-lifecycle-manager/releases/download/v0.32.0/install.sh | bash -s v0.32.0
+* Run Kubernetes master and worker to install ArgoCD & run below commands on K8 master
+* curl -sL https://github.com/operator-framework/operator-lifecycle-manager/releases/download/v0.32.0/install.sh | bash -s v0.32.0
+* kubectl create -f https://operatorhub.io/install/argocd-operator.yaml
+* kubectl get csv -n operators
+* Change the URL of sonar in github repository with the latest url.
+* Go to Jenkins -> manage credentials -> add username & password for dockerhub -> Id as docker-cred
+* Go to Jenkins -> manage credentials -> secret text -> github token
+
+<img width="1247" height="304" alt="image" src="https://github.com/user-attachments/assets/4b39f5a8-ece2-4a48-8593-934d32d5e8fb" />
+
+* create a argo.yml file on master
+
+        apiVersion: argoproj.io/v1alpha1
+        kind: ArgoCD
+        metadata:
+          name: example-argocd
+          labels:
+            example: basic
+        spec: {}
+
+        kubectl apply -f argo.yml
+
+  
