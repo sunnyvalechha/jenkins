@@ -128,7 +128,8 @@ We have made changes in the existing pipeline and created a multi-build and mult
 
 1. Code checkout from Github
 2. Configure Sonar server on ec2 instance
-3. 
+3. Setup Sonar & jenkins Integration
+4. 
 
 
 * t2.large ubuntu instance launched
@@ -146,17 +147,23 @@ We have made changes in the existing pipeline and created a multi-build and mult
 * Manage Jenkins    -->    Plugins    -->    Available plugins    -->    Search for "Docker Pipeline"
 * Manage Jenkins    -->    Plugins    -->    Available plugins    -->    Search for "SonarQube Scanner"
 * sudo apt update && sudo apt install unzip -y
-* useradd sonarqube
-* mkdir sonarqube
+* adduser sonarqube
+* mkdir /opt/sonarqube
 * cd /opt/sonarqube
 * wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-10.6.0.92116.zip
-* All distributions of sonar: https://binaries.sonarsource.com/?prefix=Distribution/sonarqube/
+* All versions of sonar: https://binaries.sonarsource.com/?prefix=Distribution/sonarqube/
 * unzip *
-* chown -R sonarqube:sonarqube /opt/sonarqube
-* chmod -R 775 /opt/sonarqube
+* Edit <sonarqubeHome>/conf/sonar.properties to configure the following settings:
+        sonar.path.data=/var/sonarqube/data
+        sonar.path.temp=/var/sonarqube/temp
+* sudo chmod -R 775 /opt/sonarqube
 * sudo chown -R sonarqube:sonarqube /var/sonarqube/
 * sudo chown -R sonarqube:sonarqube /opt/sonarqube-10.6.0.92116/
 * cd /opt/sonarqube/sonarqube-10.4.1.88267/bin/linux-x86-64
 * /opt/sonarqube-10.6.0.92116/bin/linux-x86-64/sonar.sh start
 * /opt/sonarqube-10.6.0.92116/bin/linux-x86-64/sonar.sh status
 * http://13.235.132.98:9000
+* Sonar id:admin / pass:123
+* Sonar        -->        Myaccount        -->        Security        -->        Generate Token        --> Copy Token
+* Manage Jenkins        -->        Credentials        -->        System        -->        Global credentials (unrestricted)        -->        Add creds        -->
+* New creds        -->        Kind-Secret text        -->        Paste token in secret section        -->        Id=sonarqube        -->        Create        
